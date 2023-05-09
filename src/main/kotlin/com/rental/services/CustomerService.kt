@@ -3,6 +3,7 @@ package com.rental.services
 import com.rental.models.Customer
 import com.rental.repositories.CustomerRepository
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class CustomerService(private val customerRepository: CustomerRepository) {
@@ -15,7 +16,7 @@ class CustomerService(private val customerRepository: CustomerRepository) {
         return this.customerRepository.findByEmail(email)
     }
 
-    fun getById(id: Int): Customer{
-        return this.customerRepository.getById(id)
+    fun findById(id: Int): Optional<Customer> {
+        return this.customerRepository.findById(id)
     }
 }

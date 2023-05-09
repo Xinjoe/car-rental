@@ -6,7 +6,10 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
+import jakarta.validation.constraints.NotBlank
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import java.util.HashSet
 
 @Entity
 class Customer {
@@ -35,4 +38,7 @@ class Customer {
     fun comparePassword(password: String):Boolean{
         return BCryptPasswordEncoder().matches(password,this.password)
     }
+
+    @OneToMany(mappedBy="customer")
+    private val rentCar: Set<RentCar>? = null
 }

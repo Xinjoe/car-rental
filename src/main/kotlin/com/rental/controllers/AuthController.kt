@@ -9,6 +9,7 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletResponse
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -59,7 +60,7 @@ class AuthController (private val customerService: CustomerService){
             val body =
                 Jwts.parser().setSigningKey("secret").parseClaimsJws(jwt).body //get issuer and expiration, issuer=id
 
-            return ResponseEntity.ok(this.customerService.getById(body.issuer.toInt()))
+            return ResponseEntity.ok(this.customerService.findById(body.issuer.toInt()))
 
         }catch (e: Exception){
             return ResponseEntity.status(401).body(Message("Unauthenticated"))
